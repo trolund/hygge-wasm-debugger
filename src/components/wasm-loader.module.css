@@ -1,0 +1,57 @@
+.button {
+    background-color: #093663; /* Green */
+    border: solid 1px #304964;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 20px;
+    transition: all 0.1s ease 0s;
+    scale: 1;
+}
+
+.button:hover {
+    background-color: #304964;
+    color: white;
+}
+
+.button:active {
+    scale: 0.9;
+}
+
+.button:disabled {
+    background-color: #304964;
+    color: #a0a0a0;
+    border: solid 1px #a0a0a0;
+}
+
+.button:disabled:hover {
+    scale: 1;
+}
+
+.icon {
+    margin: 0px 10px -3px -7px;
+}
+
+.stdout {
+    padding: 50px;
+}
+
+footer {
+    width: 100vw;
+    height: 20px;
+    background-color: #093663;
+    color: rgba(255, 255, 255, 0.637);
+    position: fixed;   
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 1.2rem;
+    text-align: center;
+}
