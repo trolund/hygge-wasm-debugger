@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from './wasm-loader.module.css';
 import { useFilePicker } from 'use-file-picker';
 import { FiFileText, FiChevronRight, FiRefreshCcw } from "react-icons/fi";
-import { WASI, init, MemFS, JSVirtualFile } from "@wasmer/wasi";
+import { WASI, init, MemFS } from "@wasmer/wasi";
 import { Buffer } from 'buffer';
 import { lowerI64Imports } from "@wasmer/wasm-transformer"
 import { MemoryAllocator } from "../services/MemoryAllocator";
