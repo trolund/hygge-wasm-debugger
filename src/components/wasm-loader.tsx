@@ -176,8 +176,10 @@ export const WasmLoader = () => {
       }
 
     } else {
-      const start = instance.exports._start as () => void;
-      start();
+      const start = instance.exports._start as () => number;
+      const exitCode = start();
+      console.log(`${stdout}(exit code: ${exitCode})`);
+      setWasmResult(exitCode);
       setIsRunning(false);
     }
   }
