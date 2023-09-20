@@ -24,6 +24,7 @@ export const WasmLoader = () => {
   const [wasmModule, setWasmInstance] = useState<WebAssembly.Module | null>(null);
   const [isRunDisabled, setIsRunDisabled] = useState(true);
   const [stdout, setStdout] = useState("");
+  const [isDebug, setIsDebug] = useState(false); // TODO: make button to toggle debug mode
 
   let isInitialized = false;
 
@@ -90,15 +91,11 @@ export const WasmLoader = () => {
     },
   });
 
-  // let memory: WebAssembly.Memory = new WebAssembly.Memory({ initial: 1 });
-
-  
-
   const run = async () => {
     console.log("🏃‍♂️ Running...");
 
 
-    const memoryAllocator = new MemoryAllocator();
+    const memoryAllocator = new MemoryAllocator(isDebug);
     const fs = new MemFS()
 
     let wasi = new WASI({
@@ -129,7 +126,7 @@ export const WasmLoader = () => {
 
     const combinedImports = {
       ...wasiImports, // WASI imports
-      ...getImports(memoryAllocator) // Other "custom" imports
+      ...getImports(memoryAllocator, isDebug) // Other "custom" imports
     };
 
     const instance = await WebAssembly.instantiate(wasmModule, combinedImports);
@@ -176,11 +173,16 @@ export const WasmLoader = () => {
       }
 
     } else {
-      const start = instance.exports._start as () => number;
-      const exitCode = start();
-      console.log(`${stdout}(exit code: ${exitCode})`);
-      setWasmResult(exitCode);
-      setIsRunning(false);
+      try {
+        const start = instance.exports._start as () => number;
+        const exitCode = start();
+        console.log(`${stdout}(exit code: ${exitCode})`);
+        setWasmResult(exitCode);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsRunning(false);
+      }
     }
   }
 

@@ -19,9 +19,11 @@ export class MemoryAllocator {
 
     private _memory: WebAssembly.Memory | undefined;
 
-    // constructor
-    constructor() {
+    private _isDebug: boolean = false;
 
+    // constructor
+    constructor(isDebug: boolean = false) {
+        this._isDebug = isDebug;
     }
 
     /// Allocate a new block of memory of the given size in bytes.

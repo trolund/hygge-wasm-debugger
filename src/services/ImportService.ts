@@ -2,7 +2,7 @@ import { log } from "console";
 import { MemoryAllocator } from "./MemoryAllocator";
 
 // function that take a wasm instance and memory alocator and return imports object
-export function getImports(memoryAllocator: MemoryAllocator): object {
+export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = false): object {
 
     let memory = memoryAllocator.memory as WebAssembly.Memory;
 
@@ -29,7 +29,7 @@ export function getImports(memoryAllocator: MemoryAllocator): object {
           },
           malloc(size: number) {
             let pointer = memoryAllocator.allocate(size);
-            console.log("malloc", size, "pointer", pointer);
+            if (isDebug) { console.log("malloc", size, "pointer", pointer); }
             return pointer;
           }
         }
