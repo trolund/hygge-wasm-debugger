@@ -30,7 +30,7 @@ export class MemoryAllocator {
         // find required number of pages to grow
         const requiredPages = (this.offset + size) / this._pageSize;
         // round required pages to the next integer
-        const roundedPages: number = Math.ceil(requiredPages) as number;
+        const roundedPages: number = (Math.ceil(requiredPages) as number) - 1;
 
         this.grow(roundedPages); // grow by 1 page
 
