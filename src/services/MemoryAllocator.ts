@@ -1,6 +1,3 @@
-// grow the linear memory by the given number of pages
-declare function grow(size: number): void;
-
 export class MemoryAllocator {
 
     // current offset
@@ -35,7 +32,9 @@ export class MemoryAllocator {
         // round required pages to the next integer
         const roundedPages: number = Math.ceil(requiredPages) as number;
 
-        grow(roundedPages); // grow by 1 page
+        this.grow(roundedPages); // grow by 1 page
+
+        console.log(`MemoryAllocator: growing memory by ${roundedPages} pages`);
     }
 
     const addrees = this.offset; // save current offset
