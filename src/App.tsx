@@ -10,6 +10,7 @@ function App() {
         {/* <p>Open the Chrome dev tools to debug the selected .wasm file</p>
         <p>Set a break point</p> */}
         <WasmLoader />
+        <p><b>Windows:</b> Ctrl + Shift + J. <b>Mac:</b> Cmd + Opt +J.</p>
       </header>
     </div>
   );
