@@ -25,11 +25,27 @@ export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = 
             const text = decoder.decode(data);
             console.log(text);
           },
+          writeInt(i: number){
+            console.log(i);
+          },
           malloc(size: number) {
             let pointer = memoryAllocator.allocate(size);
             if (isDebug) { console.log("malloc", size, "pointer", pointer); }
             return pointer;
-          }
+          },
+          readInt() {
+            var num;
+            do {
+              var val = prompt("Input an integer");
+              if (val == null) {
+                continue;
+              }
+              num = parseInt(val);
+              return num;
+            }
+            while (num && isNaN(num));
+            return 0;
+          },
         }
       }
 
