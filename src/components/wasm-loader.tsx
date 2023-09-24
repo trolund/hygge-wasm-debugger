@@ -94,7 +94,6 @@ export const WasmLoader = () => {
   const run = async () => {
     console.log("🏃‍♂️ Running...");
 
-
     const memoryAllocator = new MemoryAllocator(isDebug);
     const fs = new MemFS()
 

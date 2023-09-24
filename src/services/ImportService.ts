@@ -4,8 +4,6 @@ import { MemoryAllocator } from "./MemoryAllocator";
 // function that take a wasm instance and memory alocator and return imports object
 export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = false): object {
 
-    let memory = memoryAllocator.memory as WebAssembly.Memory;
-
     return {
         env: {
           abort(_msg: any, _file: any, line: any, column: any) {
@@ -14,7 +12,7 @@ export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = 
           writeS(address: number, length: number) {
             // Get `memory[address..address + length]`.
             const mem = new Uint8Array(
-              memory.buffer
+              (memoryAllocator.memory as WebAssembly.Memory).buffer
             );
     
             const data = mem.subarray(
