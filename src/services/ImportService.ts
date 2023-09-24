@@ -1,4 +1,3 @@
-import { log } from "console";
 import { MemoryAllocator } from "./MemoryAllocator";
 
 // function that take a wasm instance and memory alocator and return imports object
@@ -41,6 +40,8 @@ export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = 
                 continue;
               }
               num = parseInt(val);
+
+              console.log("User provided input:", num);
               return num;
             }
             while (num && isNaN(num));

@@ -16,6 +16,12 @@ type exportValue = {
   name: string;
 }
 
+const css = "background: #FFF; color: blue; font-size: 12px; font-weight: bold;"
+
+const log = (...args: any[]) => {
+  console.log(...args.map((arg) => `%c${arg}`), css);
+}
+
 export const WasmLoader = () => {
 
   const [msg, setMsg] = useState("");
@@ -34,7 +40,7 @@ export const WasmLoader = () => {
       return;
     }
     init().then(() => {
-      console.log("🚀 WASI initialized");
+      log("🚀 WASI initialized");
       isInitialized = true;
     })
 
@@ -69,30 +75,30 @@ export const WasmLoader = () => {
       const haveEntryPoint = exports.find((e: exportValue) => (e.name == "_start" && e.kind == "function") ? true : false);
 
       if (haveEntryPoint) {
-        console.log("Found _start function");
+        log("Found _start function");
         setIsRunDisabled(false);
       } else {
-        console.log("No _start function found");
+        log("No _start function found");
         setMsg("No _start function found ❌");
         setIsRunDisabled(true);
       }
     },
     onFilesRejected: ({ errors }) => {
       // this callback is called when there were validation errors
-      console.log('File rejected', errors);
+      log('File rejected', errors);
       setMsg("File rejected: " + errors);
       setIsRunDisabled(true);
     },
     onFilesSuccessfulySelected: ({ plainFiles, filesContent }) => {
       // this callback is called when there were no validation errors
-      console.log('File selected', plainFiles[0].name);
+      log('File selected', plainFiles[0].name);
       setMsg("File selected: " + plainFiles[0].name + " ✅");
       setIsRunDisabled(false);
     },
   });
 
   const run = async () => {
-    console.log("🏃‍♂️ Running...");
+    log("🏃‍♂️ Running...");
 
     const memoryAllocator = new MemoryAllocator(isDebug);
     const fs = new MemFS()
@@ -109,7 +115,7 @@ export const WasmLoader = () => {
     setIsRunning(true);
 
     if (!wasmModule) {
-      console.log("No wasm module found");
+      log("No wasm module found");
       return;
     }
 
@@ -120,7 +126,7 @@ export const WasmLoader = () => {
       wasiImports = wasi.getImports(wasmModule);
       wasiUsed = true;
     } catch (e) {
-      console.log("WASI not used.")
+      log("WASI not used.")
     }
 
     const combinedImports = {
@@ -141,7 +147,7 @@ export const WasmLoader = () => {
     try {
       heap_base = (instance.exports.heap_base_ptr as any).value as number;
     } catch (e) {
-      console.log("No heap_base_ptr found");
+      log("No heap_base_ptr found");
       heap_base = 0;
     }
 
@@ -161,8 +167,7 @@ export const WasmLoader = () => {
 
         setStdout(stdout);
 
-        // This should print "hello world (exit code: 0)"
-        console.log(`${stdout}(exit code: ${exitCode})`);
+        log(`${stdout}(exit code: ${exitCode})`, 'DodgerBlue');
         setWasmResult(exitCode);
       } catch (e) {
         console.error(e);
@@ -175,7 +180,7 @@ export const WasmLoader = () => {
       try {
         const start = instance.exports._start as () => number;
         const exitCode = start();
-        console.log(`${stdout}(exit code: ${exitCode})`);
+        log(`${stdout}(exit code: ${exitCode})`);
         setWasmResult(exitCode);
       } catch (e) {
         console.error(e);

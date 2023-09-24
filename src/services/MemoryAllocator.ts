@@ -16,7 +16,7 @@ export class MemoryAllocator {
 
     private _memory: WebAssembly.Memory | undefined;
 
-    private _isDebug: boolean = false;
+    private _isDebug: boolean = true;
 
     // constructor
     constructor(isDebug: boolean = false) {
