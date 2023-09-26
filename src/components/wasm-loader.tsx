@@ -91,7 +91,7 @@ export const WasmLoader = () => {
     },
     onFilesSuccessfulySelected: ({ plainFiles, filesContent }) => {
       // this callback is called when there were no validation errors
-      log('File selected', plainFiles[0].name);
+      log(`File selected: ${plainFiles[0].name}`);
       setMsg("File selected: " + plainFiles[0].name + " ✅");
       setIsRunDisabled(false);
     },
