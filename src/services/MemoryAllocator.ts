@@ -40,6 +40,8 @@ export class MemoryAllocator {
     const addrees = this.offset; // save current offset
     this.offset += size; // increment offset by size
 
+    if (this._isDebug) console.log(`MemoryAllocator: allocated ${size} bytes at offset ${addrees}`);
+
     return addrees; // return address
     }
 

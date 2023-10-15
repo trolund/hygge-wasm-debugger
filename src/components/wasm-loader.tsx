@@ -7,6 +7,7 @@ import { Buffer } from 'buffer';
 import { lowerI64Imports } from "@wasmer/wasm-transformer"
 import { MemoryAllocator } from "../services/MemoryAllocator";
 import { getImports } from "../services/ImportService";
+import Switch from "react-switch";
 
 // @ts-ignore
 window.Buffer = Buffer;
@@ -30,7 +31,7 @@ export const WasmLoader = () => {
   const [wasmModule, setWasmInstance] = useState<WebAssembly.Module | null>(null);
   const [isRunDisabled, setIsRunDisabled] = useState(true);
   const [stdout, setStdout] = useState("");
-  const [isDebug, setIsDebug] = useState(false); // TODO: make button to toggle debug mode
+  const [isDebug, setIsDebug] = useState(true); 
 
   let isInitialized = false;
 
@@ -164,7 +165,7 @@ export const WasmLoader = () => {
         let exitCode = wasi.start(instance);
         // Get the stdout of the WASI module
         let stdout = wasi.getStdoutString();
-
+        // 
         setStdout(stdout);
 
         log(`${stdout}(exit code: ${exitCode})`, 'DodgerBlue');
@@ -179,14 +180,24 @@ export const WasmLoader = () => {
     } else {
       try {
         const start = instance.exports._start as () => number;
-        const exitCode = start();
-        log(`${stdout}(exit code: ${exitCode})`);
-        setWasmResult(exitCode);
+        start();
       } catch (e) {
-        console.error(e);
+        console.error("Program failed");
       } finally {
+        handleExitCode(instance);
         setIsRunning(false);
       }
+    }
+  }
+
+  const handleExitCode = (instance: WebAssembly.Instance) => {
+    try {
+      let exitCode = (instance.exports.exit_code as any).value as number;
+      log(`exit code: ${exitCode}`);
+      setWasmResult(exitCode);
+    } catch (e) {
+      log("No exit_code found");
+      setWasmResult(-1);
     }
   }
 
@@ -208,9 +219,12 @@ export const WasmLoader = () => {
   return (
     <>
       <button className={styles.button} onClick={reloadPage}><FiRefreshCcw className={styles.icon} />Reset</button>
+
+      <span><label>Debug mode</label><Switch onChange={() => setIsDebug(!isDebug)} checked={isDebug} /></span>
       {loading && <div>⏳Loading...</div>}
       {isRunning && <div>🏃‍♂️Running...</div>}
       <div>
+
         <button className={styles.button} onClick={openFileSelector}><FiFileText className={styles.icon} /> Select file</button>
         <button disabled={isRunDisabled} className={styles.button} onClick={run}><FiChevronRight className={styles.icon} /> Run</button>
       </div>
