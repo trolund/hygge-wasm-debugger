@@ -220,7 +220,7 @@ export const WasmLoader = () => {
     <>
       <button className={styles.button} onClick={reloadPage}><FiRefreshCcw className={styles.icon} />Reset</button>
 
-      <span><label>Debug mode</label><Switch onChange={() => setIsDebug(!isDebug)} checked={isDebug} /></span>
+      <span><label style={{fontSize: "1rem", margin: "20px"}}>Debug mode</label><br/><br/><Switch onChange={() => setIsDebug(!isDebug)} checked={isDebug} /></span>
       {loading && <div>⏳Loading...</div>}
       {isRunning && <div>🏃‍♂️Running...</div>}
       <div>
