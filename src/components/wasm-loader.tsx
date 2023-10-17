@@ -31,7 +31,10 @@ export const WasmLoader = () => {
   const [wasmModule, setWasmInstance] = useState<WebAssembly.Module | null>(null);
   const [isRunDisabled, setIsRunDisabled] = useState(true);
   const [stdout, setStdout] = useState("");
-  const [isDebug, setIsDebug] = useState(true); 
+  const [funcList, setFuncList] = useState<string[]>([]);
+  // selected function name
+  const [selectedFunc, setSelectedFunc] = useState<string>("_start");
+  const [isDebug, setIsDebug] = useState(true);
 
   let isInitialized = false;
 
@@ -71,6 +74,9 @@ export const WasmLoader = () => {
       setWasmInstance(module);
 
       const exports = WebAssembly.Module.exports(module);
+
+      const funcList = exports.filter((e: exportValue) => e.kind == "function").map((e: exportValue) => e.name);
+      setFuncList(funcList);
 
       const heapBase = exports.find((e: exportValue) => e.name == "heap_base_ptr" ? true : false);
       const haveEntryPoint = exports.find((e: exportValue) => (e.name == "_start" && e.kind == "function") ? true : false);
@@ -179,8 +185,9 @@ export const WasmLoader = () => {
 
     } else {
       try {
-        const start = instance.exports._start as () => number;
-        start();
+        const start = instance.exports[selectedFunc] as Function;
+        const res = start();
+        console.log("result:" + res);
       } catch (e) {
         console.error("Program failed");
       } finally {
@@ -220,12 +227,18 @@ export const WasmLoader = () => {
     <>
       <button className={styles.button} onClick={reloadPage}><FiRefreshCcw className={styles.icon} />Reset</button>
 
-      <span><label style={{fontSize: "1rem", margin: "20px"}}>Debug mode</label><br/><br/><Switch onChange={() => setIsDebug(!isDebug)} checked={isDebug} /></span>
+      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Debug mode</label><br /><br /><Switch onChange={() => setIsDebug(!isDebug)} checked={isDebug} /></span>
       {loading && <div>⏳Loading...</div>}
       {isRunning && <div>🏃‍♂️Running...</div>}
       <div>
 
         <button className={styles.button} onClick={openFileSelector}><FiFileText className={styles.icon} /> Select file</button>
+        {funcList.length > 1 &&
+          <select name="funcs" id="funcs" onChange={(e) => setSelectedFunc((e.target as any).value)} value={selectedFunc}>
+            {funcList.map((func) => {
+              return <option key={func} value={func}>{func}</option>
+            })}
+          </select>}
         <button disabled={isRunDisabled} className={styles.button} onClick={run}><FiChevronRight className={styles.icon} /> Run</button>
       </div>
       <div>
