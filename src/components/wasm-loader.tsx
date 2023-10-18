@@ -62,6 +62,7 @@ export const WasmLoader = () => {
       setWasmResult(null);
       setStdout("");
       setIsRunDisabled(false);
+      setSelectedFunc("_start"); // reset selected function
       // get the first and only file
       const wasmFile = file.filesContent[0];
       // get the bytes
