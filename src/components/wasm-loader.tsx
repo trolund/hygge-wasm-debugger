@@ -43,6 +43,14 @@ export const WasmLoader = () => {
     if (isInitialized) {
       return;
     }
+
+    // load debug mode from local storage
+    const isDebug = localStorage.getItem("isDebug");
+    if (isDebug) {
+      setIsDebug(isDebug == "true");
+    }
+
+    // initialize WASI
     init().then(() => {
       log("🚀 WASI initialized");
       isInitialized = true;
@@ -228,7 +236,10 @@ export const WasmLoader = () => {
     <>
       <button className={styles.button} onClick={reloadPage}><FiRefreshCcw className={styles.icon} />Reset</button>
 
-      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Debug mode</label><br /><br /><Switch onChange={() => setIsDebug(!isDebug)} checked={isDebug} /></span>
+      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Debug mode</label><br /><br /><Switch onChange={() => { 
+        const value = !isDebug;
+        localStorage.setItem("isDebug", String(value));
+        setIsDebug(value)}} checked={isDebug} /></span>
       {loading && <div>⏳Loading...</div>}
       {isRunning && <div>🏃‍♂️Running...</div>}
       <div>
