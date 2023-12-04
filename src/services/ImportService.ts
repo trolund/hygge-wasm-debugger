@@ -16,7 +16,7 @@ export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = 
           abort(_msg: any, _file: any, line: any, column: any) {
             console.error("abort called at index.ts:" + line + ":" + column);
           },
-          writeS(address: number, length: number) {
+          writeS(address: number, length: number, nl: number) {
             // Get `memory[address..address + length]`.
             const mem = new Uint8Array(
               (memoryAllocator.memory as WebAssembly.Memory).buffer
@@ -30,13 +30,28 @@ export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = 
             // Convert it into a string.
             const decoder = new TextDecoder("utf-8");
             const text = decoder.decode(data);
-            console.log(text);
+            
+            if (nl) {
+              console.log(text + "\n");
+            }
+            else {
+              console.log(text);
+            }
           },
-          writeInt(i: number){
-            console.log(i);
+          writeInt(i: number, nl: number){
+            if (nl) {
+              console.log(i + "\n");
+            }else {
+              console.log(i);
+            }
+            
           },
-          writeFloat(f: number){
-            console.log(f);
+          writeFloat(f: number, nl: number){
+            if (nl) {
+              console.log(f + "\n");
+            }else {
+              console.log(f);
+            }
           },
           readFloat() {
             var num;
