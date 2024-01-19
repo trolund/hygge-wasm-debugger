@@ -90,6 +90,13 @@ export const WasmLoader = () => {
       const heapBase = exports.find((e: exportValue) => e.name == "heap_base_ptr" ? true : false);
       const haveEntryPoint = exports.find((e: exportValue) => (e.name == "_start" && e.kind == "function") ? true : false);
 
+      if (heapBase) {
+        log("Found heap_base_ptr");
+      } else {
+        log("No heap_base_ptr found");
+        setMsg("No heap_base_ptr found ❌");
+      }
+
       if (haveEntryPoint) {
         log("Found _start function");
         setIsRunDisabled(false);
@@ -113,7 +120,13 @@ export const WasmLoader = () => {
     },
   });
 
+  const reset = () => {
+    setWasmResult(-1);
+    setStdout("");
+  }
+
   const run = async () => {
+    reset(); // reset result and stdout
     log("🏃‍♂️ Running...");
 
     const memoryAllocator = new MemoryAllocator(isDebug);
@@ -147,16 +160,10 @@ export const WasmLoader = () => {
 
     const combinedImports = {
       ...wasiImports, // WASI imports
-      ...getImports(memoryAllocator, isDebug) // Other "custom" imports
+      ...getImports(memoryAllocator, isDebug) // HyggeSI "custom" imports
     };
 
-    const instance = await WebAssembly.instantiate(wasmModule, combinedImports);
-
-    // Grow the memory function
-
-    let growMemory = (n: number) => {
-      (instance.exports.memory as WebAssembly.Memory).grow(n);
-    }
+    const instance: WebAssembly.Instance = await WebAssembly.instantiate(wasmModule, combinedImports);
 
     let heap_base: number;
 
@@ -170,7 +177,7 @@ export const WasmLoader = () => {
     // initialize the memory allocator
     memoryAllocator.set(heap_base);
     memoryAllocator.memory = (instance.exports.memory as WebAssembly.Memory);
-    memoryAllocator.setGrow(growMemory);
+    // memoryAllocator.setGrow(growMemory);
 
     if (wasiUsed) {
 
@@ -236,7 +243,7 @@ export const WasmLoader = () => {
     <>
       <button className={styles.button} onClick={reloadPage}><FiRefreshCcw className={styles.icon} />Reset</button>
 
-      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Debug mode</label><br /><br /><Switch onChange={() => { 
+      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Verbose logging:</label><br /><br /><Switch onChange={() => { 
         const value = !isDebug;
         localStorage.setItem("isDebug", String(value));
         setIsDebug(value)}} checked={isDebug} /></span>

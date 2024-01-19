@@ -12,7 +12,7 @@ export class MemoryAllocator {
     // 4 bytes stride
     private readonly _stride: number = 4;
 
-    private grow: ((s: number) => void) | null = null;
+    // private grow: ((s: number) => void) | null = null;
 
     private _memory: WebAssembly.Memory | undefined;
 
@@ -26,18 +26,20 @@ export class MemoryAllocator {
     /// Allocate a new block of memory of the given size in bytes.
     /// Returns the offset of the allocated block.
     allocate(size: number): number {
-    if (this.offset + size > (this.currentSize * this._pageSize) && this.grow) {
-        // find required number of pages to grow
+    if (this.offset + size > (this.currentSize * this._pageSize)) {
+        // find required number of pages to needed
         const requiredPages = (this.offset + size) / this._pageSize;
         // round required pages to the next integer
         const roundedPages: number = (Math.ceil(requiredPages) as number);
         
+        // difference between current size and the new required size
         const growBy = roundedPages - this.currentSize;
 
-        this.grow(growBy); // grow by 1 page
+        // grow by n number of page(s)
+        this._memory?.grow(growBy); // grow by n number of page(s)
         this.currentSize += growBy; // update current size
 
-        console.log(`MemoryAllocator: growing memory by ${growBy} pages`);
+        if (this._isDebug) console.log(`MemoryAllocator: growing memory by ${growBy} pages`);
     }
 
     const addrees = this.offset; // save current offset
@@ -48,9 +50,9 @@ export class MemoryAllocator {
     return addrees; // return address
     }
 
-    setGrow(grow: (s: number) => void): void {
-        this.grow = grow;
-    }
+    // setGrow(grow: (s: number) => void): void {
+    //     this.grow = grow;
+    // }
 
     get memory(): WebAssembly.Memory | undefined {
         return this._memory;
