@@ -8,6 +8,7 @@ import { lowerI64Imports } from "@wasmer/wasm-transformer"
 import { MemoryAllocator } from "../services/MemoryAllocator";
 import { getImports } from "../services/ImportService";
 import Switch from "react-switch";
+import { decimalToHexString, intTo32Hex } from "../services/Utils";
 
 // @ts-ignore
 window.Buffer = Buffer;
@@ -32,6 +33,7 @@ export const WasmLoader = () => {
   const [isRunDisabled, setIsRunDisabled] = useState(true);
   const [stdout, setStdout] = useState("");
   const [funcList, setFuncList] = useState<string[]>([]);
+  const [wasiInput, setWasiInput] = useState<string>("");
   // selected function name
   const [selectedFunc, setSelectedFunc] = useState<string>("_start");
   const [isDebug, setIsDebug] = useState(true);
@@ -153,7 +155,20 @@ export const WasmLoader = () => {
 
     try {
       wasiImports = wasi.getImports(wasmModule);
+      // get the stdin of the WASI module
       wasiUsed = true;
+      const imports = WebAssembly.Module.imports(wasmModule);
+      const useInput = imports.some((e: any) => e.name == "fd_read");
+
+      if (useInput) {
+        log("WASI input used");
+        var val = prompt("WASI: Input an integer");
+        let hexStr = intTo32Hex(val);
+        console.log("User provided input:", val);
+        wasi.setStdinString(hexStr);
+      } else {
+        log("WASI input used");
+      }
     } catch (e) {
       log("WASI not used.")
     }
@@ -190,7 +205,7 @@ export const WasmLoader = () => {
         // 
         setStdout(stdout);
 
-        log(`${stdout}(exit code: ${exitCode})`, 'DodgerBlue');
+        log(`${stdout}\n(exit code: ${exitCode})`);
         setWasmResult(exitCode);
       } catch (e) {
         console.error(e);
@@ -243,10 +258,11 @@ export const WasmLoader = () => {
     <>
       <button className={styles.button} onClick={reloadPage}><FiRefreshCcw className={styles.icon} />Reset</button>
 
-      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Verbose logging:</label><br /><br /><Switch onChange={() => { 
+      <span><label style={{ fontSize: "1rem", margin: "20px" }}>Verbose logging:</label><br /><br /><Switch onChange={() => {
         const value = !isDebug;
         localStorage.setItem("isDebug", String(value));
-        setIsDebug(value)}} checked={isDebug} /></span>
+        setIsDebug(value)
+      }} checked={isDebug} /></span>
       {loading && <div>⏳Loading...</div>}
       {isRunning && <div>🏃‍♂️Running...</div>}
       <div>
@@ -274,5 +290,3 @@ export const WasmLoader = () => {
     </>
   );
 };
-
-

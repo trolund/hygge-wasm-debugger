@@ -66,3 +66,44 @@ export const stdinRead = (
   // Return the current stdin, per the C API
   return buffer.length;
 }
+
+function hexToString(hex: string) {
+  var str = '';
+  for (var i = 0; i < hex.length; i += 2) {
+      var charCode = parseInt(hex.substr(i, 2), 16);
+      str += String.fromCharCode(charCode);
+  }
+  return str;
+}
+
+export const intToHex = (i: number) => {
+    const hex = i.toString(16);
+    const paddedHex = hex.length === 1 ? "0" + hex : hex;
+    return "" + hexToString(paddedHex);
+}
+
+export const intTo32Hex = (value: any) => {
+    const mask = 255;
+    const hex = [
+        value & mask,
+        (value >>> 8) & mask,
+        (value >>> 16) & mask,
+        (value >>> 24) & mask
+    ];
+    return hex.map(intToHex).join("");
+}
+
+export const dataString = (l: number[]) => {
+    return l.map(intTo32Hex).join("");
+}
+
+// found here: https://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hexadecimal-in-javascript
+export function decimalToHexString(number: number) 
+{
+  if (number < 0)
+  {
+    number = 0xFFFFFFFF + number + 1;
+  }
+
+  return number.toString(16).toUpperCase();
+}

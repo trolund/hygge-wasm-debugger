@@ -26,7 +26,9 @@ export class MemoryAllocator {
     /// Allocate a new block of memory of the given size in bytes.
     /// Returns the offset of the allocated block.
     allocate(size: number): number {
-    if (this.offset + size > (this.currentSize * this._pageSize)) {
+    // if the offset + size is greater than the current size of the memory
+    // then grow the memory by the required number of pages
+    if (this.offset + size > (this.currentSize * this._pageSize)) { 
         // find required number of pages to needed
         const requiredPages = (this.offset + size) / this._pageSize;
         // round required pages to the next integer
