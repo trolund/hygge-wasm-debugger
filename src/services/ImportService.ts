@@ -67,7 +67,7 @@ export function getImports(memoryAllocator: MemoryAllocator, isDebug: boolean = 
             return pointer;
           },
           readInt() {
-            var num;
+            a
             do {
               var val = prompt("Input an integer");
               if (val == null) {

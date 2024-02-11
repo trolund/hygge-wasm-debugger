@@ -221,6 +221,7 @@ export const WasmLoader = () => {
         console.log("result:" + res);
       } catch (e) {
         console.error("Program failed");
+        console.error(e); 
       } finally {
         handleExitCode(instance);
         setIsRunning(false);
