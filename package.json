@@ -1,6 +1,7 @@
 {
   "name": "wasm-debugger",
   "version": "0.1.0",
+  "homepage": "https://gitname.github.io/wasm-debugger",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
