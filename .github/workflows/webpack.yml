@@ -26,6 +26,8 @@ jobs:
       run: npm install
 
     - name: build
+      env:
+         CI: false
       run: npm run build
 
     - name: Commit build to GitHub Pages
