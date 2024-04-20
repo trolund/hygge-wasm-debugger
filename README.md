@@ -4,6 +4,8 @@ Wasm-Debugger is the implamentation of the the Learning and Development tool pop
 
 The tool is designed to make it easy to load, run, and debug WebAssembly programs produced by the HyggeWasm compiler.
 
+[Demo link](https://trolund.github.io/Wasm-Debugger/)
+
 ## Available Scripts
 
 In the project directory, you can run:
