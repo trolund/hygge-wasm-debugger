@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/wasm-debugger/static/css/main.147572cc.css",
-    "main.js": "/wasm-debugger/static/js/main.f5c6547b.js",
-    "static/js/453.a697284d.chunk.js": "/wasm-debugger/static/js/453.a697284d.chunk.js",
-    "index.html": "/wasm-debugger/index.html",
-    "main.147572cc.css.map": "/wasm-debugger/static/css/main.147572cc.css.map",
-    "main.f5c6547b.js.map": "/wasm-debugger/static/js/main.f5c6547b.js.map",
-    "453.a697284d.chunk.js.map": "/wasm-debugger/static/js/453.a697284d.chunk.js.map"
+    "main.css": "/Wasm-Debugger/static/css/main.caa7ac73.css",
+    "main.js": "/Wasm-Debugger/static/js/main.3473ba8a.js",
+    "static/js/787.8b60d3af.chunk.js": "/Wasm-Debugger/static/js/787.8b60d3af.chunk.js",
+    "index.html": "/Wasm-Debugger/index.html",
+    "main.caa7ac73.css.map": "/Wasm-Debugger/static/css/main.caa7ac73.css.map",
+    "main.3473ba8a.js.map": "/Wasm-Debugger/static/js/main.3473ba8a.js.map",
+    "787.8b60d3af.chunk.js.map": "/Wasm-Debugger/static/js/787.8b60d3af.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.147572cc.css",
-    "static/js/main.f5c6547b.js"
+    "static/css/main.caa7ac73.css",
+    "static/js/main.3473ba8a.js"
   ]
 }
