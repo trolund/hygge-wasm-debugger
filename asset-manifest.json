@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wasm-debugger/static/css/main.caa7ac73.css",
+    "main.js": "/wasm-debugger/static/js/main.cdb5ef1f.js",
+    "static/js/787.8b60d3af.chunk.js": "/wasm-debugger/static/js/787.8b60d3af.chunk.js",
+    "index.html": "/wasm-debugger/index.html",
+    "main.caa7ac73.css.map": "/wasm-debugger/static/css/main.caa7ac73.css.map",
+    "main.cdb5ef1f.js.map": "/wasm-debugger/static/js/main.cdb5ef1f.js.map",
+    "787.8b60d3af.chunk.js.map": "/wasm-debugger/static/js/787.8b60d3af.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.caa7ac73.css",
+    "static/js/main.cdb5ef1f.js"
+  ]
+}
