@@ -2,7 +2,7 @@
 
 Wasm-Debugger is the implamentation of the the Learning and Development tool poposed as part of the master thesis "Design and Implementation of a WebAssembly Compiler Back-End for the High-Level Programming Language Hygge" by Troels Lund.
 
-The tool is designed to make it easy to load, run, and debug WebAssembly programs produced by the HyggeWasm compiler.
+The tool is designed to make it easy to load, run, and debug WebAssembly programs produced by the HyggeWasm compiler. The HyggeWasm compiler can be found [here](https://github.com/trolund/hyggeWasm)
 
 [Demo link](https://trolund.github.io/Wasm-Debugger/)
 
