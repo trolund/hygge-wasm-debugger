@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Wasm-Debugger/static/css/main.147572cc.css",
-    "main.js": "/Wasm-Debugger/static/js/main.d93ef652.js",
-    "static/js/453.a697284d.chunk.js": "/Wasm-Debugger/static/js/453.a697284d.chunk.js",
+    "main.css": "/Wasm-Debugger/static/css/main.caa7ac73.css",
+    "main.js": "/Wasm-Debugger/static/js/main.3473ba8a.js",
+    "static/js/787.8b60d3af.chunk.js": "/Wasm-Debugger/static/js/787.8b60d3af.chunk.js",
     "index.html": "/Wasm-Debugger/index.html",
-    "main.147572cc.css.map": "/Wasm-Debugger/static/css/main.147572cc.css.map",
-    "main.d93ef652.js.map": "/Wasm-Debugger/static/js/main.d93ef652.js.map",
-    "453.a697284d.chunk.js.map": "/Wasm-Debugger/static/js/453.a697284d.chunk.js.map"
+    "main.caa7ac73.css.map": "/Wasm-Debugger/static/css/main.caa7ac73.css.map",
+    "main.3473ba8a.js.map": "/Wasm-Debugger/static/js/main.3473ba8a.js.map",
+    "787.8b60d3af.chunk.js.map": "/Wasm-Debugger/static/js/787.8b60d3af.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.147572cc.css",
-    "static/js/main.d93ef652.js"
+    "static/css/main.caa7ac73.css",
+    "static/js/main.3473ba8a.js"
   ]
 }
