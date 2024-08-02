@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/hygge-wasm-debugger/static/css/main.147572cc.css",
-    "main.js": "/hygge-wasm-debugger/static/js/main.58c3f465.js",
-    "static/js/453.42e5a36e.chunk.js": "/hygge-wasm-debugger/static/js/453.42e5a36e.chunk.js",
+    "main.css": "/hygge-wasm-debugger/static/css/main.caa7ac73.css",
+    "main.js": "/hygge-wasm-debugger/static/js/main.689cdf40.js",
+    "static/js/787.72dc3898.chunk.js": "/hygge-wasm-debugger/static/js/787.72dc3898.chunk.js",
     "index.html": "/hygge-wasm-debugger/index.html",
-    "main.147572cc.css.map": "/hygge-wasm-debugger/static/css/main.147572cc.css.map",
-    "main.58c3f465.js.map": "/hygge-wasm-debugger/static/js/main.58c3f465.js.map",
-    "453.42e5a36e.chunk.js.map": "/hygge-wasm-debugger/static/js/453.42e5a36e.chunk.js.map"
+    "main.caa7ac73.css.map": "/hygge-wasm-debugger/static/css/main.caa7ac73.css.map",
+    "main.689cdf40.js.map": "/hygge-wasm-debugger/static/js/main.689cdf40.js.map",
+    "787.72dc3898.chunk.js.map": "/hygge-wasm-debugger/static/js/787.72dc3898.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.147572cc.css",
-    "static/js/main.58c3f465.js"
+    "static/css/main.caa7ac73.css",
+    "static/js/main.689cdf40.js"
   ]
 }
